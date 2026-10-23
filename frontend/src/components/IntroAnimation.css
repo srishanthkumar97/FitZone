@@ -1,0 +1,161 @@
+.intro-overlay {
+  position: fixed;
+  z-index: 100;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+  background:
+    radial-gradient(ellipse at 50% 48%, rgb(24 25 27 / 42%), transparent 58%),
+    #050505;
+  isolation: isolate;
+  opacity: 1;
+  transition:
+    opacity 3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    filter 3s cubic-bezier(0.22, 0.61, 0.36, 1),
+    transform 3.4s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+.intro-overlay > .light-rays {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.intro-overlay--rays .light-rays,
+.intro-overlay--athlete .light-rays,
+.intro-overlay--brand .light-rays {
+  opacity: 1;
+}
+
+.intro-overlay--exit {
+  opacity: 0;
+  filter: blur(5px);
+  transform: scale(1.035);
+  pointer-events: none;
+}
+
+.intro-atmosphere {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 8%, rgb(255 255 255 / 4%), transparent 42%),
+    linear-gradient(180deg, #050505 0%, #070707 48%, #030303 100%);
+  opacity: 0.9;
+}
+
+.intro-center {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  overflow: hidden;
+  place-items: center;
+}
+
+.intro-center::before {
+  position: absolute;
+  inset: 14% 8%;
+  border-radius: 50%;
+  background: radial-gradient(
+    ellipse at center,
+    rgb(215 225 235 / 14%) 0%,
+    rgb(142 157 173 / 7%) 34%,
+    transparent 72%
+  );
+  content: '';
+  filter: blur(36px);
+  opacity: 0;
+  transition: opacity 3.2s ease;
+}
+
+.intro-overlay--athlete .intro-center::before,
+.intro-overlay--brand .intro-center::before {
+  opacity: 1;
+}
+
+.intro-athlete {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(110vw, 1300px);
+  height: min(92vh, 870px);
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  filter: grayscale(1) brightness(0.72) contrast(1.32) blur(18px);
+  mix-blend-mode: screen;
+  transform: translate(-50%, -50%) scale(0.48);
+  clip-path: circle(0% at 50% 50%);
+  mask-image: radial-gradient(ellipse 63% 78% at center, #000 42%, transparent 100%);
+  transition:
+    opacity 3.1s ease,
+    filter 3.4s ease,
+    transform 3.8s cubic-bezier(0.16, 0.78, 0.22, 1),
+    clip-path 3.6s cubic-bezier(0.16, 0.78, 0.22, 1);
+  user-select: none;
+}
+
+.intro-athlete.is-visible {
+  opacity: 0.9;
+  filter: grayscale(1) brightness(0.72) contrast(1.32) blur(0);
+  transform: translate(-50%, -50%) scale(1.08);
+  clip-path: circle(76% at 50% 50%);
+}
+
+.intro-overlay--exit .intro-athlete {
+  opacity: 0;
+  filter: grayscale(1) brightness(0.8) blur(12px);
+  transform: translate(-50%, -50%) scale(1.18);
+  clip-path: circle(84% at 50% 50%);
+}
+
+.intro-brand {
+  position: absolute;
+  top: 61%;
+  left: 50%;
+  z-index: 2;
+  width: min(88vw, 700px);
+  filter: drop-shadow(0 0 12px rgb(255 42 42 / 48%));
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition:
+    opacity 900ms ease,
+    transform 900ms ease;
+}
+
+.intro-brand .stroke-text__svg {
+  max-width: 100%;
+}
+
+.intro-overlay--exit .intro-brand {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.96);
+  transition-delay: 0ms;
+}
+
+@media (max-width: 600px) {
+  .intro-athlete {
+    width: 125vw;
+    height: min(84vh, 700px);
+  }
+
+  .intro-center::before {
+    inset: 20% -10%;
+  }
+
+  .intro-brand {
+    top: 58%;
+    width: 90vw;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-overlay,
+  .intro-center::before,
+  .intro-athlete,
+  .intro-brand {
+    transition-duration: 350ms;
+    transition-delay: 0ms;
+  }
+}
